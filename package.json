@@ -1,0 +1,26 @@
+{
+  "name": "0014-expressjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npm run lint:js && npm run lint:fix",
+    "lint:fix": "eslint --fix --ext *.js",
+    "lint:js": "eslint --ext *.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "express": "^4.17.1",
+    "file-stream-rotator": "^0.5.5",
+    "log4js": "^6.1.0",
+    "morgan": "^1.9.1",
+    "node-uuid": "^1.4.8",
+    "nodemon": "^2.0.2"
+  }
+}

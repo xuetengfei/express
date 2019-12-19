@@ -1,0 +1,7 @@
+node_modules
+Reference
+ecosystem.config.js
+*.jpg
+*.png
+*.gif
+*.log
