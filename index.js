@@ -1,14 +1,14 @@
-/* eslint-disable */
 const express = require('express');
 const cors = require('cors');
 const uuid = require('node-uuid');
 const fs = require('fs');
-const { accessLogger, errorLogger, logDirectory } = require('./public/middleware/morgan');
-const { logErrors } = require('./public/middleware/logErrors');
-const { clientErrorHandler } = require('./public/middleware/clientErrorHandler');
-const { errorHandler } = require('./public/middleware/errorHandler');
 
-const { HandleUser } = require('./routerHandler');
+const { logErrors } = require('./public/middleware/logErrors');
+const { errorHandler } = require('./public/middleware/errorHandler');
+const { clientErrorHandler } = require('./public/middleware/clientErrorHandler');
+const { accessLogger, errorLogger, logDirectory } = require('./public/middleware/morgan');
+
+const { HandleUser } = require('./DAO');
 
 if (!fs.existsSync(logDirectory)) {
   fs.mkdirSync(logDirectory);
@@ -72,16 +72,6 @@ app.route('*').all((_req, res) => {
   });
 });
 
-// // eslint-disable-next-line no-unused-vars
-// app.use((_req, res, _next) => {
-//   res.status(404).send('Sorry cant find that!');
-// });
-// // eslint-disable-next-line no-unused-vars
-// app.use((err, _req, res, _next) => {
-//   console.error(err.stack);
-//   console.log('err: ', err);
-//   res.status(500).send('Something broke!');
-// });
 app.use(logErrors);
 app.use(clientErrorHandler);
 app.use(errorHandler);
