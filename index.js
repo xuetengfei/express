@@ -1,21 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 const uuid = require('node-uuid');
+const bodyParser = require('body-parser');
 const fs = require('fs');
+
+const port = 2000;
+const app = express();
+
+const DAO = require('./DAO');
 
 const { logErrors } = require('./public/middleware/logErrors');
 const { errorHandler } = require('./public/middleware/errorHandler');
 const { clientErrorHandler } = require('./public/middleware/clientErrorHandler');
 const { accessLogger, errorLogger, logDirectory } = require('./public/middleware/morgan');
 
-const { HandleUser } = require('./DAO');
-
 if (!fs.existsSync(logDirectory)) {
   fs.mkdirSync(logDirectory);
 }
-
-const port = 2000;
-const app = express();
 
 app.use([accessLogger, errorLogger]);
 
@@ -25,6 +26,7 @@ function assignId(req, _res, next) {
 }
 app.use(assignId);
 app.use(cors());
+app.use(bodyParser.json());
 
 app.use('/public', express.static(`${__dirname}/static`));
 const cb0 = (_req, _res, next) => {
@@ -62,8 +64,11 @@ app.get('/books/:id', (req, res) => {
   }
 });
 
-app.use('/user', HandleUser);
+app.use('/user', DAO.HandleUser);
+app.use('/dev', DAO.HandleDev);
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+require('./db');
 
 app.route('*').all((_req, res) => {
   res.json({

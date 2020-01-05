@@ -1,28 +1,23 @@
 const express = require('express');
 
-const R = express.Router();
+const Router = express.Router();
+const { resOK, resError } = require('./public');
 
-R.get('/:id', async (req, res) => {
+// curl - s http://localhost:2000/user
+
+Router.get('/', async (req, res) => {
+  resError(res, { error: 'mise user id ' });
+});
+
+// curl - s http://localhost:2000/user/123 | jq
+
+Router.get('/:id', async (req, res) => {
   const userId = req.params.id;
   try {
-    res.json({
-      status: 1,
-      list: userId,
-    });
-    // res.status(200).json({ error: 'message' });
+    resOK(res, { list: userId });
   } catch (error) {
-    res.json({
-      status: 0,
-      list: userId,
-      msg: 'error',
-      error,
-    });
+    resError(res, { error, list: userId });
   }
 });
 
-/**
-    不要使用module.exports的默认导出方式
-    module.exports = R
-*/
-
-exports.HandleUser = R;
+exports.HandleUser = Router;
