@@ -14,30 +14,16 @@ Router.get('/', async (_req, res) => {
   }
 });
 
-/**
-
-➜  curl -s -H "Content-Type: application/json"  \
--d '{"name":"js"}' \
--X POST "http://localhost:2000/dev/add" | jq
-{
-  "date": "2020-01-05T09:23:09.909Z",
-  "_id": "5e11ab29eb0ae874fa4eb35c",
-  "name": "js",
-  "__v": 0
-}
-
-*/
 Router.post('/add', async (req, res) => {
   try {
-    const Language = new LanguagesSchema({
+    const document = new LanguagesSchema({
       name: req.body.name,
     });
-    const saveResult = await Language.save();
-    res.json(saveResult);
+    const saveResult = await document.save();
+    resOK(res, { saveResult });
   } catch (error) {
-    // res.json(ErrorRes({ error }));
     ValidationErrorFN(res, error);
   }
 });
 
-exports.HandleDev = Router;
+module.exports = Router;

@@ -1,7 +1,2 @@
-const { HandleUser } = require('./user');
-const { HandleDev } = require('./dev');
-
-module.exports = {
-  HandleDev,
-  HandleUser,
-};
+exports.HandleUser = require('./user');
+exports.HandleDev = require('./dev');

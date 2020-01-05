@@ -1,0 +1,13 @@
+### /dev
+curl http://localhost:2000/dev
+
+### /dev/add
+curl -H "Content-Type: application/json"  \
+-X POST "http://localhost:2000/dev/add" \
+-d '{"name":"some th new"}' 
+
+### /user
+curl http://localhost:2000/user
+
+### /user/123
+curl http://localhost:2000/user/123

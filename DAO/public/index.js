@@ -1,13 +1,23 @@
 const mongoose = require('mongoose');
 
-exports.resOK = (res, response) => res.json({ status: 1, resMsg: 'ok', ...response });
-exports.resError = (res, response) => res.json({ status: 0, resMsg: 'error', ...response });
+const SUCCESS = 1;
+const FAILURE = 0;
+
+exports.resOK = (res, response) => res.json({ status: SUCCESS, resMsg: 'ok', ...response });
+exports.resError = (res, response) => res.json({ status: FAILURE, resMsg: 'error', ...response });
 
 exports.isNumber = val => typeof val === 'number';
 
 exports.ValidationErrorFN = (res, e) => {
   if (e instanceof mongoose.Error.ValidationError) {
-    return res.status(400).send({ error: 'ValidationError' });
+    return res.json({
+      status: FAILURE,
+      resMsg: 'error',
+      error: `miss ${e.errors.name.path}`,
+    });
   }
-  return res.status(500).send({ error: 'Internal Error' });
+  return res.json({
+    status: FAILURE,
+    resMsg: 'error',
+  });
 };
