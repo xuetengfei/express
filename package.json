@@ -18,7 +18,7 @@
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "file-stream-rotator": "^0.5.5",
     "log4js": "^6.1.0",
     "mongoose": "^5.8.4",
